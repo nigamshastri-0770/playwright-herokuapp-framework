@@ -14,7 +14,10 @@ module.exports = defineConfig({
 
   use: {
     baseURL: 'https://the-internet.herokuapp.com',
-    headless: process.env.CI ? true : false,
+    headless: true,
+    launchOptions: {
+      args: ['--no-sandbox']
+    },
     screenshot: 'only-on-failure',
     video: 'off',
     trace: 'on-first-retry'
@@ -25,8 +28,7 @@ module.exports = defineConfig({
       name: 'chrome',
       use: {
         browserName: 'chromium',
-        channel: 'chrome',
-        headless: false
+        channel: 'chrome'
       },
     },
   ],
