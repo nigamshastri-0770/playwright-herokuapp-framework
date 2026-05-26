@@ -15,6 +15,24 @@ pipeline {
             }
         }
 
+        stage('Install Linux Dependencies') {
+            steps {
+                sh '''
+                apt-get update
+
+                apt-get install -y \
+                libatomic1 \
+                libnss3 \
+                libatk-bridge2.0-0 \
+                libgtk-3-0 \
+                libxss1 \
+                libasound2t64 \
+                libgbm1 \
+                xvfb
+                '''
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
@@ -29,7 +47,9 @@ pipeline {
 
         stage('Run Playwright Tests') {
             steps {
-                sh 'npx playwright test'
+                sh '''
+                xvfb-run npx playwright test
+                '''
             }
         }
     }
