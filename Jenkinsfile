@@ -22,30 +22,24 @@ pipeline {
 
                 apt-get install -y \
                 libatomic1 \
-                libnss3 \
-                libatk-bridge2.0-0 \
-                libgtk-3-0 \
-                libxss1 \
-                libasound2t64 \
-                libgbm1 \
                 xvfb
                 '''
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Node Dependencies') {
             steps {
                 sh 'npm install'
             }
         }
 
-        stage('Install Playwright Browsers') {
+        stage('Install Playwright') {
             steps {
-                sh 'npx playwright install --with-deps'
+                sh 'npx playwright install --with-deps chromium'
             }
         }
 
-        stage('Run Playwright Tests') {
+        stage('Run Tests') {
             steps {
                 sh '''
                 xvfb-run npx playwright test
