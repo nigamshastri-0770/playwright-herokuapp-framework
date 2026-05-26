@@ -14,7 +14,7 @@ module.exports = defineConfig({
 
   use: {
     baseURL: 'https://the-internet.herokuapp.com',
-    headless: false,
+    headless: process.env.CI ? true : false,
     screenshot: 'only-on-failure',
     video: 'off',
     trace: 'on-first-retry'
