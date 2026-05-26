@@ -1,0 +1,14 @@
+{
+  "name": "playwright-herokuapp-framework",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:chrome": "playwright test --project=chromium",
+    "report": "playwright show-report",
+    "debug": "playwright test --debug"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.0"
+  }
+}
