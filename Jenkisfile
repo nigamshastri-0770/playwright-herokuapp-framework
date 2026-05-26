@@ -1,12 +1,17 @@
 pipeline {
+
     agent any
+
+    tools {
+        nodejs 'NodeJS'
+    }
 
     stages {
 
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/nigamshastri-0770/automation-exercise-framework.git'
+                url: 'https://github.com/nigamshastri-0770/playwright-herokuapp-framework.git'
             }
         }
 
@@ -27,15 +32,11 @@ pipeline {
                 sh 'npx playwright test'
             }
         }
+    }
 
-        stage('Publish Report') {
-            steps {
-                publishHTML([
-                    reportDir: 'playwright-report',
-                    reportFiles: 'index.html',
-                    reportName: 'Playwright Report'
-                ])
-            }
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
         }
     }
 }
